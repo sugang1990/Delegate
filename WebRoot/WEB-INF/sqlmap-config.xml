@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-config-2.dtd"> 
+<sqlMapConfig>  
+    <settings cacheModelsEnabled="false"   
+              enhancementEnabled="true"  
+              lazyLoadingEnabled="true"   
+              errorTracingEnabled="true"   
+              maxRequests="32"  
+              maxSessions="10"   
+              maxTransactions="5"   
+              useStatementNamespaces="false"  
+              defaultStatementTimeout="60"/> 
+    <!-- 将数据库中的一些字段和java的一些类型进行匹配 -->
+<!--      <typeHandler jdbcType="CLOB" javaType="java.lang.String" callback="org.springframework.orm.ibatis.support.ClobStringTypeHandler"/>
+     <typeHandler jdbcType="DATE" javaType="java.util.Date" callback="org.springframework.orm.ibatis.CusDateTypeHandlerCallback"/> -->
+     <sqlMap resource="com/jlxy/graduationDesin/model/CORE_Employee_UCK_SqlMap.xml"/>
+</sqlMapConfig>

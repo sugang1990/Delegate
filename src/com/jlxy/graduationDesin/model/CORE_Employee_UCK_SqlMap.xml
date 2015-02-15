@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="CORE_Employee_UCK">
+<typeAlias alias="employObj" type="com.jlxy.graduationDesin.model.Employee" />
+<resultMap class="employObj" id="abatorenerted_CoreEmployUckResult">
+  <result column="NAME_ID" property="name" jdbcType="VARCHAR"/>
+  <result column="PASSWORD" property="password" jdbcType="VARCHAR"/>
+  <result column="DEPARTMENT" property="department" jdbcType="VARCHAR"/>
+  <result column="SALARY" property="salary" jdbcType="VARCHAR"/>
+</resultMap>
+  <select id="getEmployee" parameterClass="String" resultMap="abatorenerted_CoreEmployUckResult">
+    select name_id,password,department,salary from employ where name_id=#name:varchar#
+  </select>
+  
+  <select id="queyEmployees" parameterClass="int" resultMap="abatorenerted_CoreEmployUckResult">
+    select name_id,password,department,salary from employ where check_flag=#key:int# 
+  </select>
+  
+    <select id="queyallEmployees" resultMap="abatorenerted_CoreEmployUckResult">
+        select * from employ 
+    </select>
+  
+    <update id="updateEmployee" parameterClass="employObj">
+       update employ set department=#department:varchar#,salary=#salary:varchar# where name_id=#name:varchar#
+    </update>
+  
+  	<delete id="deleteEmployee" parameterClass="employObj">
+         <![CDATA[delete from employ where name_id=#name:varchar#]]>
+	</delete>
+	
+	<insert id="insertEmployee" parameterClass="employObj">
+   <![CDATA[
+      insert into employ(name_id,department,password,salary)
+        values(
+         #name:varchar#,
+         #department:varchar#,
+	     #password:varchar#,
+	     #salary:varchar#
+  )]]>
+  </insert>
+  
+</sqlMap>

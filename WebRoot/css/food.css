@@ -1,0 +1,40 @@
+*{
+	padding:0px;
+	bolder:0px;
+	margin:0px;
+}
+ body{
+   margin:0 auto;
+ }
+ .clear{zoom:1;}
+ 
+ .clear:after{
+	 content:"";
+	 display:block;
+	 height:0;
+	 clear:both;
+	 visibility: hidden;
+ }
+ #top{
+   margin:0 auto;
+   width:950px;
+   height:60px;
+ }
+ 
+  .banner1{
+  	float:left;
+ }
+ .banner2{
+   float:left;
+   padding-left:200px;
+ }
+ 
+ #nav{
+   margin:10px 480px;
+   list-style:none;
+   background-color: #FE7115;
+ }
+ #nav li{
+    float:left;
+    padding-left:10px;
+ }

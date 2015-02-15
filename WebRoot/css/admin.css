@@ -1,0 +1,38 @@
+@charset "UTF-8";
+/* CSS Document */
+*{
+	margin:0px;
+	padding:0px;
+}
+#main{
+	margin:0px auto;
+	width:1024px;	
+	}
+#header{
+	margin:0px auto;
+	width:1024px;
+	height:110px;
+}
+#top{
+	width:1024px;
+	font:"华文隶书";
+	font-size:15px;
+	height:25px;
+	background-color:#9FC;
+}
+#center{
+	width:1024px;
+	height:700px;
+}
+#cLeft{	
+	background-color:#3C6;
+	width:150px;
+	height:500px;
+	float:left;
+}
+#cRight{
+	width:865px;
+	height:500px;
+	background-color:#6FF;
+	margin-left:150px;
+}

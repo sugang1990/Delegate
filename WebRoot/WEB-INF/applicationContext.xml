@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc 
+        http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+        http://www.springframework.org/schema/aop 
+        http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	<!-- JDBC -->
+	<!-- <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" 
+		autowire="byName" destroy-method="close"> <property name="driverClassName" 
+		value="${jdbc.driverClassName}" /> <property name="url" value="${jdbc.url}" 
+		/> <property name="username" value="${jdbc.username}" /> <property name="password" 
+		value="${jdbc.password}" /> </bean> -->
+
+	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" >
+		<value>java:comp/env/jdbc/MyDatabase</value>
+		</property>
+	</bean> 
+	<!--定义数据源 -->
+	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="configLocation" value="/WEB-INF/sqlmap-config.xml" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- 过滤 Repository的注解 -->
+<!-- 	<context:component-scan base-package="com.jlxy.graduationDesin.dao.impl">
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Repository" />
+	</context:component-scan>
+	<context:component-scan base-package="com.jlxy.graduationDesin.dao.impl" />
+	<context:component-scan base-package="com.jlxy.graduationDesin.service.impl" /> -->
+
+	<!-- 事务管理 Transaction Manager action -->
+<!-- 	<bean id="txManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+		<property name="defaultTimeout" value="60" />
+	</bean> -->
+
+
+	<!-- 事务拦截器 -->
+<!-- 	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="tx*" rollback-for="Exception" />
+		</tx:attributes>
+	</tx:advice> -->
+
+	<!-- 自动代理 -->
+<!-- 	<aop:config proxy-target-class="true">
+		<aop:advisor
+			pointcut="excution(* com.jlxy.graduationDesin.service.serviceImpl.*ServiceImpl.*(..))"
+			advice-ref="txAdvice" />
+	</aop:config> -->
+
+
+	<!-- 根据dataSource提供 JdbcTemplate注入 -->
+<!-- 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean> -->
+	<mvc:annotation-driven />
+	<context:component-scan base-package="com.jlxy.graduationDesin.web.controller" />
+	<context:component-scan base-package="com.jlxy.graduationDesin.service.serviceImpl" />
+	<context:component-scan base-package="com.jlxy.graduationDesin.dao.impl"> 
+	    <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/> 
+	</context:component-scan>
+	<mvc:resources location="/resources/" mapping="/resources/*" />
+	<mvc:resources location="/css/" mapping="/css/*" />
+	<mvc:resources location="/img/" mapping="/img/*" />
+	<mvc:resources location="/images/" mapping="/images/*" />
+	<mvc:resources location="/js/" mapping="/js/*" />
+	<mvc:resources location="/js/common/" mapping="/js/common/*" />
+	<mvc:resources location="/music/" mapping="/music/*" />
+	<mvc:resources location="/" mapping="/*.html" />
+	<bean id="parameterComponent"
+		class="com.jlxy.graduationDesin.component.impl.ParameterComponentImpl">
+		<!-- <property name="jdbcTemplate" ref="jdbcTemplate"></property> -->
+	</bean>
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/jsp/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+</beans>
